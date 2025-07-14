@@ -3,19 +3,19 @@ import type { User } from '@/types/user.ts'
 import { useQuery } from '@pinia/colada'
 import { computed, ref, watch } from 'vue'
 import LoadingSpinner from '@/components/LoadingSpinner.vue'
-import UserSortDropdown from '@/components/tables/UserSortDropdown.vue'
 import UserPagination from '@/components/tables/UserPagination.vue'
 import UserSearchBar from '@/components/tables/UserSearchBar.vue'
+import UserSortDropdown from '@/components/tables/UserSortDropdown.vue'
 import UserTable from '@/components/tables/UserTable.vue'
 import { useUserStore } from '@/stores/userStore.ts'
 
 const userStore = useUserStore()
-const currentPage = ref(1)
-const itemsPerPage = ref(10)
-const searchQuery = ref('')
+const currentPage = ref<number>(1)
+const itemsPerPage = ref<number>(10)
+const searchQuery = ref<string>('')
 const allUsers = ref<User[]>([])
-const isClientLoading = ref(false)
-const clientError = ref('')
+const isClientLoading = ref<boolean>(false)
+const clientError = ref<string>('')
 
 const sortOptions = [
   { value: '-', label: 'Sort: None' },
@@ -72,7 +72,7 @@ const { data, isLoading, error, refetch } = useQuery({
   refetchOnReconnect: false,
 })
 
-async function fetchAllUsersForSort() {
+async function fetchAllUsersForSort(): Promise<void> {
   isClientLoading.value = true
   clientError.value = ''
   try {
@@ -111,22 +111,22 @@ watch([() => userStore.sortOrder, searchQuery], ([order, q], [oldOrder, oldQ]) =
   }
 })
 
-function clearSearch() {
+function clearSearch(): void {
   searchQuery.value = ''
 }
-function handleSearch(query: string) {
+function handleSearch(query: string): void {
   searchQuery.value = query
 }
 
-const totalResults = computed(() => {
+const totalResults = computed<number>(() => {
   if (userStore.sortOrder === '-') {
     return data.value?.info?.results || 0
   }
   return allUsers.value.length
 })
-const totalPages = computed(() => Math.ceil(totalResults.value / itemsPerPage.value) || 1)
+const totalPages = computed<number>(() => Math.ceil(totalResults.value / itemsPerPage.value) || 1)
 
-function nextPage() {
+function nextPage(): void {
   if (userStore.sortOrder === '-') {
     currentPage.value++
   }
@@ -136,12 +136,12 @@ function nextPage() {
     }
   }
 }
-function prevPage() {
+function prevPage(): void {
   if (currentPage.value > 1) {
     currentPage.value--
   }
 }
-function goToPage(page: number) {
+function goToPage(page: number): void {
   if (userStore.sortOrder === '-') {
     currentPage.value = page
   }
@@ -152,14 +152,14 @@ function goToPage(page: number) {
   }
 }
 
-const users = computed(() => {
+const users = computed<User[]>(() => {
   if (userStore.sortOrder === '-') {
     return data.value?.results || []
   }
 
   const [field, direction] = userStore.sortOrder.split('-')
 
-  function getSortValue(user: any) {
+  function getSortValue(user: User): string {
     switch (field) {
       case 'name':
         return `${user.name.first} ${user.name.last}`.toLowerCase()

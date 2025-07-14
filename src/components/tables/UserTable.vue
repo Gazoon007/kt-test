@@ -6,10 +6,12 @@ import { useUserStore } from '@/stores/userStore.ts'
 import { toCapitalCase } from '@/utils/stringUtils.ts'
 import UserDetailModal from '../modals/UserDetailModal.vue'
 
-defineProps<{
+interface Props {
   users: User[]
   isLoading?: boolean
-}>()
+}
+
+const props = defineProps<Props>()
 
 const userStore = useUserStore()
 
@@ -100,11 +102,11 @@ function closeUserModal(): void {
         </tr>
       </thead>
       <TransitionGroup
-        :name="isLoading ? '' : 'list'" tag="tbody"
+        :name="props.isLoading ? '' : 'list'" tag="tbody"
         class="divide-y divide-gray-200 bg-white"
       >
         <tr
-          v-for="user in users"
+          v-for="user in props.users"
           :key="user.login.uuid"
           class="hover:bg-gray-50"
         >
@@ -162,9 +164,9 @@ function closeUserModal(): void {
 
   <!-- Mobile card layout -->
   <div class="md:hidden">
-    <TransitionGroup :name="isLoading ? '' : 'list'" tag="div" class="space-y-4">
+    <TransitionGroup :name="props.isLoading ? '' : 'list'" tag="div" class="space-y-4">
       <div
-        v-for="user in users"
+        v-for="user in props.users"
         :key="user.login.uuid"
         class="bg-white rounded-lg shadow p-4"
       >

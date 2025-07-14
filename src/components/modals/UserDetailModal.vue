@@ -1,14 +1,18 @@
 <script lang="ts" setup>
 import type { User } from '@/types/user.ts'
 import { useDateFormat } from '@vueuse/core'
-import { computed } from 'vue'
+import { computed, defineEmits, defineProps } from 'vue'
 
-const props = defineProps<{
-  show: boolean
+interface Props {
   user: User | null
-}>()
+  show: boolean
+}
 
-const emit = defineEmits(['close'])
+const props = defineProps<Props>()
+
+const emit = defineEmits<{
+  (e: 'close'): void
+}>()
 
 const fullName = computed(() => {
   if (!props.user)

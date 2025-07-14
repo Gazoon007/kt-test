@@ -1,33 +1,34 @@
 <script lang="ts" setup>
 import { useDebounceFn } from '@vueuse/core'
-import { ref } from 'vue'
+import { defineEmits, defineProps, ref } from 'vue'
 
-const props = defineProps({
-  initialQuery: {
-    type: String,
-    default: '',
-  },
-})
+interface Props {
+  initialQuery?: string
+}
 
-const emit = defineEmits(['search', 'clear'])
+const props = defineProps<Props>()
+const emit = defineEmits<{
+  (e: 'search', query: string): void
+  (e: 'clear'): void
+}>()
 
-const searchInput = ref(props.initialQuery || '')
+const searchInput = ref<string>(props.initialQuery ?? '')
 
 const debouncedSearch = useDebounceFn(() => {
   emit('search', searchInput.value)
 }, 300)
 
-function handleInput() {
+function handleInput(): void {
   debouncedSearch()
 }
 
-function performSearch() {
-  emit('search', searchInput.value)
-}
-
-function clearSearch() {
+function clearSearch(): void {
   searchInput.value = ''
   emit('clear')
+}
+
+function performSearch(): void {
+  emit('search', searchInput.value)
 }
 </script>
 

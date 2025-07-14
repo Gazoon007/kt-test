@@ -1,28 +1,22 @@
 <script lang="ts" setup>
-import { computed } from 'vue'
-import { useUserStore } from '@/stores/userStore.ts'
+import { computed, defineEmits, defineProps } from 'vue'
 import { useBreakpoints } from '@/composables/useBreakpoints.ts'
+import { useUserStore } from '@/stores/userStore.ts'
 
-const props = defineProps({
-  currentPage: {
-    type: Number,
-    required: true,
-  },
-  totalPages: {
-    type: Number,
-    required: true,
-  },
-  itemsPerPage: {
-    type: Number,
-    default: 10,
-  },
-  totalResults: {
-    type: Number,
-    default: 0,
-  },
-})
+interface Props {
+  currentPage: number
+  totalPages: number
+  itemsPerPage: number
+  totalResults: number
+}
 
-const emit = defineEmits(['nextPage', 'prevPage', 'goToPage'])
+const props = defineProps<Props>()
+
+const emit = defineEmits<{
+  (e: 'goToPage', page: number): void
+  (e: 'nextPage'): void
+  (e: 'prevPage'): void
+}>()
 
 const { isMobile } = useBreakpoints()
 

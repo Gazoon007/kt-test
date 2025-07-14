@@ -1,22 +1,24 @@
 <script lang="ts" setup>
 import { computed, defineEmits, defineProps } from 'vue'
 
-const props = defineProps({
-  modelValue: {
-    type: String,
-    required: true,
-  },
-  options: {
-    type: Array as () => { value: string, label: string }[],
-    required: true,
-  },
-})
+interface SortOption {
+  value: string
+  label: string
+}
 
-const emit = defineEmits(['update:modelValue'])
+interface Props {
+  modelValue: string
+  options: SortOption[]
+}
+
+const props = defineProps<Props>()
+const emit = defineEmits<{
+  (e: 'update:modelValue', value: string): void
+}>()
 
 const localValue = computed({
-  get: () => props.modelValue,
-  set: (val: string) => emit('update:modelValue', val),
+  get: (): string => props.modelValue,
+  set: (val: string): void => emit('update:modelValue', val),
 })
 </script>
 

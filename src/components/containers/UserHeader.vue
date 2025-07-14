@@ -1,8 +1,10 @@
 <script lang="ts" setup>
-defineProps<{
+interface Props {
   name: string
   avatarUrl: string
-}>()
+}
+
+defineProps<Props>()
 </script>
 
 <template>
