@@ -1,12 +1,12 @@
 <script lang="ts" setup>
-import { RouterLink, RouterView } from 'vue-router'
+import { RouterView } from 'vue-router'
 </script>
 
 <template>
   <div class="min-h-screen bg-gray-50">
     <nav class="bg-white shadow">
       <div class="max-w-5xl mx-auto px-2 sm:px-4 py-4 flex items-center">
-        <img src="/kiratech-logo.png" class="h-10" />
+        <img alt="Kiratech Logo" src="/kiratech-logo.png" class="h-10" />
       </div>
     </nav>
 
