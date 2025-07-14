@@ -90,6 +90,43 @@ pnpm format
 pnpm build
 ```
 
+## Data Fetching & Caching Strategy
+
+This project uses **@pinia/colada** for advanced query caching and efficient data fetching.
+
+### Pagination & Caching Behavior
+
+- **Sort: None (Default Pagination Mode)**
+  - Uses @pinia/colada’s caching: when you visit a page (e.g., page 1), the result is cached.
+  - Navigating back to a previously visited page (e.g., from page 3 to page 1) does not trigger a new API request; data is served from cache.
+  - Visiting a new page (e.g., page 4 for the first time) triggers an API request and then caches the result.
+  - This demonstrates efficient, per-page caching and avoids redundant network requests.
+
+- **Other Sort Modes**
+  - When sorting is enabled, the app fetches up to 100 users in a single request (client-side mode).
+  - All filtering, sorting, and pagination are handled client-side, making the search bar fully functional across all users and pages.
+  - This enables instant, cross-page searching and sorting.
+
+### Search Bar Behavior & Current Limitation
+
+- **Sort: None**
+  - The search bar only filters the users on the first page. If you are on any page other than page 1, searching will not return results—even if the user exists elsewhere. This is because only the first page's data is available for searching in this mode. Full cross-page search would require fetching all users at once (potential future improvement).
+
+- **Other Sort Modes**
+  - The search bar works globally across all loaded users (up to 100), regardless of the current page.
+  - This is because all user data is available client-side for filtering.
+
+#### ⚠️ Known Issue
+> In **"Sort: None"** mode, the search bar only works for users on the first page. If you are on any page other than page 1, searching will not return results—even if the user exists elsewhere. This is because only the first page's data is available for searching in this mode. Full cross-page search would require fetching all users at once (potential future improvement).
+
+## Other Known Issues & Limitations
+
+- **Gender Filtering Not Supported with Seed**
+  - The backend/mock API uses a fixed seed for user data. When a seed is specified, the `gender` parameter does not work as expected. This means filtering users by gender is not possible in this demo, and therefore a gender filter UI is not provided.
+
+- **Client-side User Cap**
+  - In client-side mode (any sort selected), only up to 100 users are fetched and available for searching/sorting. For larger datasets, this would need to be increased or paginated.
+
 ## Acknowledgments
 
 - [Vue 3](https://vuejs.org/)
