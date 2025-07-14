@@ -234,6 +234,13 @@ const users = computed<User[]>(() => {
         </div>
       </div>
       <div
+        v-else-if="isLoading || isClientLoading"
+        class="flex flex-col items-center justify-center py-12"
+      >
+        <LoadingSpinner />
+        <span class="mt-4 text-cyan-600 font-medium">Loading users...</span>
+      </div>
+      <div
         v-else
         class="bg-yellow-50 border border-yellow-200 text-yellow-700 px-4 py-3 rounded mb-4 text-center"
       >
