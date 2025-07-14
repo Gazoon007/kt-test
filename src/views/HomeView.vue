@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import UserHeader from '@/components/UserHeader.vue'
+import UserMainCard from '@/components/UserMainCard.vue'
 
 const demoUser = {
   avatar: '/avatar.png',
@@ -15,5 +16,6 @@ const demoUser = {
       :name="demoUser.name"
       @add-user="() => {}"
     />
+    <UserMainCard />
   </div>
 </template>
