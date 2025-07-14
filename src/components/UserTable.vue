@@ -1,8 +1,10 @@
 <script lang="ts" setup>
 import type { User } from '@/types/user'
 import { useDateFormat } from '@vueuse/core'
+import { ref } from 'vue'
 import { useUserStore } from '@/stores/userStore'
 import { toCapitalCase } from '@/utils/stringUtils'
+import UserDetailModal from './UserDetailModal.vue'
 
 defineProps<{
   users: User[]
@@ -10,6 +12,9 @@ defineProps<{
 }>()
 
 const userStore = useUserStore()
+
+const isModalOpen = ref(false)
+const selectedUser = ref<User | null>(null)
 
 const columns = [
   {
@@ -54,6 +59,15 @@ function toggleSort(field: string) {
   else {
     userStore.setSortOrder('-')
   }
+}
+
+function openUserModal(user: User): void {
+  selectedUser.value = user
+  isModalOpen.value = true
+}
+
+function closeUserModal(): void {
+  isModalOpen.value = false
 }
 </script>
 
@@ -109,6 +123,7 @@ function toggleSort(field: string) {
                 <div class="font-medium text-gray-900">
                   <button
                     class="text-cyan-600 hover:text-cyan-900 cursor-pointer"
+                    @click="openUserModal(user)"
                   >
                     {{ user.name.title }}. {{ user.name.first }} {{ user.name.last }}
                   </button>
@@ -135,6 +150,7 @@ function toggleSort(field: string) {
           >
             <button
               class="text-cyan-600 hover:text-cyan-900 cursor-pointer"
+              @click="openUserModal(user)"
             >
               View<span class="sr-only">, {{ user.name.first }}</span>
             </button>
@@ -158,6 +174,7 @@ function toggleSort(field: string) {
             <div class="w-full">
               <button
                 class="text-lg font-medium text-cyan-600 hover:text-cyan-900 truncate w-52 sm:w-auto block text-left"
+                @click="openUserModal(user)"
               >
                 {{ user.name.title }}. {{ user.name.first }} {{ user.name.last }}
               </button>
@@ -182,6 +199,12 @@ function toggleSort(field: string) {
       </div>
     </TransitionGroup>
   </div>
+
+  <UserDetailModal
+    :show="isModalOpen"
+    :user="selectedUser"
+    @close="closeUserModal"
+  />
 </template>
 
 <style scoped>
