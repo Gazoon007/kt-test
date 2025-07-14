@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { User } from '@/types/user'
+import type { User } from '@/types/user.ts'
 import { useDateFormat } from '@vueuse/core'
 import { computed } from 'vue'
 
@@ -134,7 +134,7 @@ function closeModal() {
             <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse sticky bottom-0">
               <button
                 type="button"
-                class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-cyan-600 text-base font-medium text-white hover:bg-cyan-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500 sm:ml-3 sm:w-auto sm:text-sm"
+                class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-cyan-600 text-base font-medium text-white hover:bg-cyan-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500 sm:ml-3 sm:w-auto sm:text-sm cursor-pointer"
                 @click="closeModal"
               >
                 Close

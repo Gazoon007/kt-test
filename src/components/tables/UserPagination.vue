@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { computed } from 'vue'
 import { useUserStore } from '@/stores/userStore.ts'
-import { useBreakpoints } from '../composables/useBreakpoints'
+import { useBreakpoints } from '@/composables/useBreakpoints.ts'
 
 const props = defineProps({
   currentPage: {

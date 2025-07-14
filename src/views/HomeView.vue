@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import UserHeader from '@/components/UserHeader.vue'
-import UserMainCard from '@/components/UserMainCard.vue'
+import UserHeader from '@/components/containers/UserHeader.vue'
+import UserMainCard from '@/components/containers/UserMainCard.vue'
 
 const demoUser = {
   avatar: '/avatar.png',

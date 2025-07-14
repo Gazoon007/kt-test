@@ -3,11 +3,11 @@ import type { User } from '@/types/user.ts'
 import { useQuery } from '@pinia/colada'
 import { computed, ref, watch } from 'vue'
 import LoadingSpinner from '@/components/LoadingSpinner.vue'
-import SortDropdown from '@/components/SortDropdown.vue'
-import UserPagination from '@/components/UserPagination.vue'
-import UserSearchBar from '@/components/UserSearchBar.vue'
-import UserTable from '@/components/UserTable.vue'
-import { useUserStore } from '@/stores/userStore'
+import UserSortDropdown from '@/components/tables/UserSortDropdown.vue'
+import UserPagination from '@/components/tables/UserPagination.vue'
+import UserSearchBar from '@/components/tables/UserSearchBar.vue'
+import UserTable from '@/components/tables/UserTable.vue'
+import { useUserStore } from '@/stores/userStore.ts'
 
 const userStore = useUserStore()
 const currentPage = ref(1)
@@ -203,7 +203,7 @@ const users = computed(() => {
           <UserSearchBar :initial-query="searchQuery" @clear="clearSearch" @search="handleSearch" />
         </div>
         <div class="flex min-w-0 flex-shrink items-center gap-2 w-full sm:w-auto">
-          <SortDropdown v-model="userStore.sortOrder" :options="sortOptions" />
+          <UserSortDropdown v-model="userStore.sortOrder" :options="sortOptions" />
         </div>
       </div>
       <div v-if="users && users.length > 0">

@@ -1,10 +1,10 @@
 <script lang="ts" setup>
-import type { User } from '@/types/user'
+import type { User } from '@/types/user.ts'
 import { useDateFormat } from '@vueuse/core'
 import { ref } from 'vue'
-import { useUserStore } from '@/stores/userStore'
-import { toCapitalCase } from '@/utils/stringUtils'
-import UserDetailModal from './UserDetailModal.vue'
+import { useUserStore } from '@/stores/userStore.ts'
+import { toCapitalCase } from '@/utils/stringUtils.ts'
+import UserDetailModal from '../modals/UserDetailModal.vue'
 
 defineProps<{
   users: User[]
