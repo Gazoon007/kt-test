@@ -5,8 +5,13 @@ import { RouterView } from 'vue-router'
 <template>
   <div class="min-h-screen bg-gray-50">
     <nav class="bg-white shadow">
-      <div class="max-w-5xl mx-auto px-2 sm:px-4 py-4 flex items-center">
+      <div class="max-w-5xl mx-auto px-2 sm:px-4 py-4 flex items-center justify-between">
         <img alt="Kiratech Logo" src="/kiratech-logo.png" class="h-10" />
+        <div class="flex items-center gap-4">
+          <font-awesome-icon :icon="['fas', 'bell']" class="text-cyan-600 text-xl cursor-pointer" />
+          <font-awesome-icon :icon="['fas', 'cog']" class="text-cyan-600 text-xl cursor-pointer" />
+          <font-awesome-icon :icon="['fas', 'right-from-bracket']" class="text-cyan-600 text-xl cursor-pointer" />
+        </div>
       </div>
     </nav>
 

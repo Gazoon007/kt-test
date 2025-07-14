@@ -32,9 +32,7 @@ const localValue = computed({
       </option>
     </select>
     <div class="pointer-events-none absolute inset-y-0 right-1 flex items-center">
-      <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.1" class="text-cyan-500">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
-      </svg>
+      <font-awesome-icon :icon="['fas', 'chevron-down']" class="text-cyan-500 w-4 h-4" />
     </div>
   </div>
 </template>
